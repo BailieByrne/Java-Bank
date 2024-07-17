@@ -1,0 +1,26 @@
+//Store issued JWTs in a dictionary with username
+//If a 2nd Login occurs from an logged in user blacklist their old JWT
+//Upon each service call check for blacklisted,expired,valid JWTs
+
+
+//TODO essentially HTML,CSS basics
+
+//Use git to push code to a repo
+//Deploy an interface
+
+
+
+
+
+
+
+//Add this to a portfolio alongside my NEA
+
+//Next Up Java Chat service with UDP and TCP, similar to discor, maybe connect to a db to store images --> USe a h2 in memory db for the server to host images that way its volatile --> add ratelimit /filze max size**
+//Alot of code i can regurgitate from my Python online game but will have to change to java, maybe make a java and python version
+//Use java or C++ to make a rendering engine ****
+//Some drag and drop load management stuff maybe ***
+//Physics engine *****
+
+
+
