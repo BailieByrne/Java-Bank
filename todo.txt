@@ -1,6 +1,9 @@
 //Handle a HTML/JS file to store recieved accessTokens in localstorage... etc
 //Use them as Bearer headings
 //Add the once per request filter, validate JWT, log acess, return secured endpoint
+//Make the HTML return page using thymeleaf model, try to add graphs/piechart
+//Integrate Checking Account overview/ withdraw / deposit
+//MAYBE add an interest rate, timestamping each account
 
 
 
