@@ -1,6 +1,7 @@
-//Store issued JWTs in a dictionary with username
-//If a 2nd Login occurs from an logged in user blacklist their old JWT
-//Upon each service call check for blacklisted,expired,valid JWTs
+//Handle a HTML/JS file to store recieved accessTokens
+//Use them as Bearer headings
+//Add the once per request filter, validate JWT, log acess, return secured endpoint
+
 
 
 //TODO essentially HTML,CSS basics
