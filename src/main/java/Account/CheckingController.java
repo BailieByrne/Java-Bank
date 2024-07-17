@@ -1,17 +1,13 @@
 package Account;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,15 +17,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import com.example.demo.DemoApplication;
-
 
 
 @RestController
 @RequestMapping("/api/accs")
 public class CheckingController{
 	
-	private static final Logger log = DemoApplication.log;
+	private static final Logger log = LogManager.getLogger(CheckingController.class);
 	private CrudAccRepository accRepository;
 	
 	

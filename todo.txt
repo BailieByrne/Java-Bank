@@ -5,8 +5,6 @@
 
 //TODO essentially HTML,CSS basics
 
-//Use git to push code to a repo
-//Deploy an interface
 
 
 

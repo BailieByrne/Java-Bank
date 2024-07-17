@@ -17,9 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthController {
 	private final LoginFormHandlerService loginFormHandlerService;
-	public static final Logger log = com.example.demo.DemoApplication.log;
-	
-	private final JWTProvider jwtProvider;
+	public static final Logger log = LogManager.getLogger(AuthController.class);
 	
 	
 	@PostMapping(value = "/login",consumes = "application/json")

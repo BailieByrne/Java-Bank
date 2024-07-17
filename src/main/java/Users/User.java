@@ -2,15 +2,13 @@ package Users;
 
 
 
-import java.time.LocalDateTime;
 
-import org.apache.logging.log4j.Logger;
+
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
-import org.springframework.stereotype.Service;
-import com.example.demo.DemoApplication;
 
 
 import jakarta.validation.constraints.*;

@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @Configuration
 @ConfigurationProperties("security.jwt")
-public class jwtProperties {
+public class JWTProperties {
 	/*
 	 * Private Secret Key Used For JWT issuing
 	 */
