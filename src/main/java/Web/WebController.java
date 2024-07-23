@@ -32,4 +32,12 @@ public class WebController {
 		log.warn("Test");
 		return "test";
 		}
+	
+	@GetMapping("")
+	public String startpage(Model model) {
+		LoginRequest loginRequest = new LoginRequest(); // Example default value
+	    model.addAttribute("loginRequest", loginRequest);
+		log.warn("Login");
+		return "login";
+		}
 }
