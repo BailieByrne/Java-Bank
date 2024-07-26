@@ -24,4 +24,11 @@ public class RegisterController {
 		
 		return registerFormHandlerService.createUser(request,model);
 	}
+	
+	@PostMapping(value = "/register",consumes = "application/json")
+	public String registerrequestJSON(@ModelAttribute RegisterRequest request,Model model) {
+		log.info("HANDLING HTML REGISTRATION");
+		
+		return registerFormHandlerService.createUser(request,model);
+	}
 }

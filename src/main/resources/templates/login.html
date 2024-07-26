@@ -23,10 +23,10 @@
                 <button type="submit" formaction="/auth/register">Register</button>
             </div>
         </form>
-
-        <div th:if="${param.error}" class="error-message">
-            <p th:text="${param.error}"></p>
-        </div>
+    </div>
+    
+    <div th:if="${param.error}" class="error-message">
+    	<p th:text="${param.error}" id="error-text"></p>
     </div>
 </body>
 </html>

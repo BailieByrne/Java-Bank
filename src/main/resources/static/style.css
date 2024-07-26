@@ -21,6 +21,14 @@ html {
     padding: 20px;
 }
 
+#error-text {
+    text-align: center;
+    color: red;
+    height: 100%;
+    padding: 10px;
+    font-weight: bold;
+}
+
 form {
     background-color: #fff; 
     padding: 20px;
