@@ -24,5 +24,4 @@ public class RegisterController {
 		
 		return registerFormHandlerService.createUser(request,model);
 	}
-
 }
