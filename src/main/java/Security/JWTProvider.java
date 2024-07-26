@@ -60,4 +60,12 @@ public class JWTProvider {
                 .withClaim("auth", user.Roles())
                 .sign(Algorithm.HMAC256(properties.getSecretKey()));
     }
+
+    private Boolean validateToken(JWT token) {
+    	if(validTokens.contains(token)) {
+    		return true;
+    	}
+    	return false;
+    }
 }
+

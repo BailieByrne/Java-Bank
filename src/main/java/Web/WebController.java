@@ -23,13 +23,13 @@ public class WebController {
 	public String loginPage(Model model) {
 		LoginRequest loginRequest = new LoginRequest(); // Example default value
 	    model.addAttribute("loginRequest", loginRequest);
-		log.warn("Login");
+		log.info("Login");
 		return "login";
 		}
 	
 	@GetMapping("/test")
 	public String testPage() {
-		log.warn("Test");
+		log.info("Test");
 		return "test";
 		}
 	
@@ -37,7 +37,13 @@ public class WebController {
 	public String startpage(Model model) {
 		LoginRequest loginRequest = new LoginRequest(); // Example default value
 	    model.addAttribute("loginRequest", loginRequest);
-		log.warn("Login");
+		log.info("Login");
 		return "login";
+		}
+	
+	@GetMapping("/info")
+	public String info() {
+		log.info("Test");
+		return "info";
 		}
 }
