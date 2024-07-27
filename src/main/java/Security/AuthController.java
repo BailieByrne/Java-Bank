@@ -22,17 +22,17 @@ public class AuthController {
 	
 	
 	@PostMapping(value = "/login",consumes = "application/json")
-	public ResponseEntity<String> loginrequestJson(@RequestBody @Validated LoginRequest request) {
+	public void loginrequestJson(@RequestBody @Validated LoginRequest request) {
 		log.info("HANDLING JSON LOGIN");
-		return ResponseEntity.ok(loginFormHandlerService.validateCredentials(request));
+		loginFormHandlerService.validateCredentials(request);
 		
 	
 	}
 	
 	@PostMapping(value = "/login",consumes = "application/x-www-form-urlencoded")
-	public ResponseEntity<String> loginrequestHTML(@ModelAttribute LoginRequest request) {
+	public void loginrequestHTML(@ModelAttribute LoginRequest request) {
 		log.info("HANDLING HTML LOGIN");
-		return ResponseEntity.ok(loginFormHandlerService.validateCredentials(request));
+		loginFormHandlerService.validateCredentials(request);
 		
 	
 	}

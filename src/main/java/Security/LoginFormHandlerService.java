@@ -4,6 +4,8 @@ package Security;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -24,18 +26,19 @@ public class LoginFormHandlerService {
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	public static final Logger log = LogManager.getLogger(LoginFormHandlerService.class);
 	
-	public String validateCredentials(@RequestBody @Validated LoginRequest request) {
+	public ResponseEntity<String> validateCredentials(@RequestBody @Validated LoginRequest request) {
 		
 		var user = crudUserRepository.findByUsername(request.getKeeper());
 		
-		if(user == null) {	
+		if(user == null) {
+			log.info("Account Does Not Exist");
 			throw new AccountException("Account Does Not Exist");
 		}else if (encoder.matches(request.getPassword(), user.password())) {
-			
 			var token = jwtProvider.issue(request.getKeeper(), user);
 			log.info("JWT ISSUED TO "+request.getKeeper());
-			return token;
+			return ResponseEntity.ok(token);
 		}else {
+			log.info("Invalid Credentials");
 			throw new AccountException("Invalid Credentials");
 		}
 	}
