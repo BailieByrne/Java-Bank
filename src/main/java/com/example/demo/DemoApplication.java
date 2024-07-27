@@ -33,7 +33,7 @@ public class DemoApplication {
 	CommandLineRunner runner(CrudAccRepository accountRepository) {
 		return args -> {
 //			CheckingAcc acc = new CheckingAcc(2, "John Doe", LocalDateTime.now(), (double) 573.27);
-//			accountRepository.save(acc);
+//			accountRepository.save(ac);
 		};
 	}
 }
