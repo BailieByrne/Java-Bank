@@ -3,18 +3,25 @@ package Security;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Component;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.JWTVerifier;
 
 import Account.AccountException;
 import Users.User;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -61,11 +68,10 @@ public class JWTProvider {
                 .sign(Algorithm.HMAC256(properties.getSecretKey()));
     }
 
-    private Boolean validateToken(JWT token) {
-    	if(validTokens.contains(token)) {
-    		return true;
-    	}
-    	return false;
+    public DecodedJWT verifyToken(String token) {
+        Algorithm algorithm = Algorithm.HMAC256(properties.getSecretKey());
+        JWTVerifier verifier = JWT.require(algorithm)
+                .build(); // Reusable verifier instance
+        return verifier.verify(token);
     }
 }
-

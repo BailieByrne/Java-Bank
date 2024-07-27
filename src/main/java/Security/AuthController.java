@@ -2,6 +2,7 @@ package Security;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,20 +22,17 @@ public class AuthController {
 	
 	
 	@PostMapping(value = "/login",consumes = "application/json")
-	public LoginResponse loginrequestJson(@RequestBody @Validated LoginRequest request) {
+	public ResponseEntity<String> loginrequestJson(@RequestBody @Validated LoginRequest request) {
 		log.info("HANDLING JSON LOGIN");
-
-		return loginFormHandlerService.validateCredentials(request);
+		return ResponseEntity.ok(loginFormHandlerService.validateCredentials(request));
 		
 	
 	}
 	
 	@PostMapping(value = "/login",consumes = "application/x-www-form-urlencoded")
-	public LoginResponse loginrequestHTML(@ModelAttribute LoginRequest request,Model model) {
+	public ResponseEntity<String> loginrequestHTML(@ModelAttribute LoginRequest request) {
 		log.info("HANDLING HTML LOGIN");
-		model.addAttribute("loginRequest", request);
-
-		return loginFormHandlerService.validateCredentials(request);
+		return ResponseEntity.ok(loginFormHandlerService.validateCredentials(request));
 		
 	
 	}

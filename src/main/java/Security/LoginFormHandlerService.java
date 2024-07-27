@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
+
 import Account.AccountException;
 import Users.CrudUserRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +24,7 @@ public class LoginFormHandlerService {
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	public static final Logger log = LogManager.getLogger(LoginFormHandlerService.class);
 	
-	public LoginResponse validateCredentials(@RequestBody @Validated LoginRequest request) {
+	public String validateCredentials(@RequestBody @Validated LoginRequest request) {
 		
 		var user = crudUserRepository.findByUsername(request.getKeeper());
 		
@@ -32,10 +34,7 @@ public class LoginFormHandlerService {
 			
 			var token = jwtProvider.issue(request.getKeeper(), user);
 			log.info("JWT ISSUED TO "+request.getKeeper());
-
-			return LoginResponse.builder().
-					accessToken(token)
-					.build();
+			return token;
 		}else {
 			throw new AccountException("Invalid Credentials");
 		}

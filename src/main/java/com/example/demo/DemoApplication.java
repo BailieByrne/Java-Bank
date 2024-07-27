@@ -12,10 +12,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 
 import Account.CrudAccRepository;
+import Security.JWTProvider;
 import Users.CrudUserRepository;
+import lombok.RequiredArgsConstructor;
 
 
-
+@RequiredArgsConstructor
 @SpringBootApplication()
 @EnableJdbcRepositories(basePackageClasses = {CrudAccRepository.class,CrudUserRepository.class}) //neccessary for some reason
 @ComponentScan(basePackages = {"Account", "Web","Security","Users"})

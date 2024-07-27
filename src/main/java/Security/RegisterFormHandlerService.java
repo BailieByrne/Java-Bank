@@ -8,6 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
+
+import Account.AccountException;
 import Users.CrudUserRepository;
 import Users.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -19,22 +21,19 @@ public class RegisterFormHandlerService {
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     public static final Logger log = LogManager.getLogger(RegisterFormHandlerService.class);
 
-    public String createUser(@Validated RegisterRequest request, Model model) {
+    public void createUser(@Validated RegisterRequest request) {
         var user = crudUserRepository.findByUsername(request.getKeeper());
-        if (user != null) {
+        if (user != null ) {
             log.info("Username Already Exists");
-            model.addAttribute("error", "Username Already Exists");
-            return "redirect:/login?error=User+Already+Exists";
+            throw new AccountException("Username Already Exists");
         }
+        
         if (request.getKeeper().isBlank() || request.getPassword().isBlank()) {
             log.info("Invalid Credentials");
-            model.addAttribute("error", "Invalid Credentials");
-            return "redirect:/login?error=Invalid+credentials";
-        } else {
-            crudUserRepository.save(UserMapper.mapToUser(request));
-            log.info("User Created");
-            model.addAttribute("status", "User Created");
-            return "redirect:/login?status=Success";
-        }
+            throw new AccountException("Username Already Exists");
+        } 
+      
+        crudUserRepository.save(UserMapper.mapToUser(request));
+        log.info("Created User "+request.getKeeper());
     }
 }
