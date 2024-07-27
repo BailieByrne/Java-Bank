@@ -33,7 +33,6 @@ public class LoginFormHandlerService {
 		}else if (encoder.matches(request.getPassword(), user.password())) {
 			var token = jwtProvider.issue(request.getKeeper(), user);
 			log.info("JWT ISSUED TO "+request.getKeeper());
-			System.out.println(token);
 			throw new CorrectLogin(token); //For some reason response entity refused to return a body but this works
 		}else {
 			log.info("Invalid Credentials");

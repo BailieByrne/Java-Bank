@@ -32,6 +32,11 @@ public class RegisterFormHandlerService {
             log.info("Invalid Credentials");
             throw new AccountException("Username Already Exists");
         } 
+        
+        if(request.getKeeper().chars().anyMatch(c -> !Character.isLetter(c))) {
+    		log.info("Invalid Credentials");
+            throw new AccountException("Username Must Contain Only Letters");
+        }
       
         crudUserRepository.save(UserMapper.mapToUser(request));
         log.info("Created User "+request.getKeeper());
