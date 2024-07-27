@@ -2,17 +2,14 @@ package Security;
 
 
 
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import com.auth0.jwt.interfaces.DecodedJWT;
-
 import Account.AccountException;
 import Users.CrudUserRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +33,8 @@ public class LoginFormHandlerService {
 		}else if (encoder.matches(request.getPassword(), user.password())) {
 			var token = jwtProvider.issue(request.getKeeper(), user);
 			log.info("JWT ISSUED TO "+request.getKeeper());
-			return ResponseEntity.ok(token);
+			System.out.println(token);
+			throw new CorrectLogin(token); //For some reason response entity refused to return a body but this works
 		}else {
 			log.info("Invalid Credentials");
 			throw new AccountException("Invalid Credentials");
