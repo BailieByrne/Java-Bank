@@ -40,4 +40,10 @@ public class WebController {
 		log.info("Redirecting User To Front End");
 		return "redirect:https://82.41.19.127:5173/login";
 		}
+	
+	@GetMapping("/api/test")
+	public String test() {
+		log.info("Testing Secured EndPoint");
+		return "test";
+		}
 }

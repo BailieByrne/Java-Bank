@@ -75,7 +75,11 @@ public class JWTProvider {
         Algorithm algorithm = Algorithm.HMAC256(properties.getSecretKey());
         JWTVerifier verifier = JWT.require(algorithm)
                 .build(); // Reusable verifier instance
-        return verifier.verify(token);
+        if(validTokens.contains(token)) {
+        	return verifier.verify(token);
+        }else {
+        	throw new AccountException("TOKEN NO LONGER VALID");
+        }
     }
     
     public Integer getUuidFromToken(String token) {
