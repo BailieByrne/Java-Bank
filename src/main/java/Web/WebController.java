@@ -23,27 +23,21 @@ public class WebController {
 	public String loginPage(Model model) {
 		LoginRequest loginRequest = new LoginRequest(); // Example default value
 	    model.addAttribute("loginRequest", loginRequest);
-		log.info("Login");
-		return "login";
-		}
-	
-	@GetMapping("/test")
-	public String testPage() {
-		log.info("Test");
-		return "test";
+		log.info("Redirecting User To Front End");
+		return "redirect:https://82.41.19.127:5173/login";
 		}
 	
 	@GetMapping("")
 	public String startpage(Model model) {
 		LoginRequest loginRequest = new LoginRequest(); // Example default value
 	    model.addAttribute("loginRequest", loginRequest);
-		log.info("Login");
-		return "login";
+	    log.info("Redirecting User To Front End");
+		return "redirect:https://82.41.19.127:5173/login";
 		}
 	
 	@GetMapping("/info")
 	public String info() {
-		log.info("Test");
-		return "info";
+		log.info("Redirecting User To Front End");
+		return "redirect:https://82.41.19.127:5173/login";
 		}
 }

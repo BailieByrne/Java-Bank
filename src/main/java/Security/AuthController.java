@@ -28,13 +28,5 @@ public class AuthController {
 		
 	
 	}
-	
-	@PostMapping(value = "/login",consumes = "application/x-www-form-urlencoded")
-	public void loginrequestHTML(@ModelAttribute LoginRequest request) {
-		log.info("HANDLING HTML LOGIN");
-		loginFormHandlerService.validateCredentials(request);
-		
-	
-	}
 
 }

@@ -5,16 +5,19 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 
@@ -74,4 +77,19 @@ public class JWTProvider {
                 .build(); // Reusable verifier instance
         return verifier.verify(token);
     }
+    
+    public Integer getUuidFromToken(String token) {
+        DecodedJWT decodedJWT = verifyToken(token);
+        return decodedJWT.getClaim("UUID").asInt();
+    }
+    public String getAuthFromToken(String token) {
+        DecodedJWT decodedJWT = verifyToken(token);
+        return decodedJWT.getClaim("auth").asString();
+    }
+    
+	public String getKeeperFromToken(String token) {
+		DecodedJWT decodedJWT = verifyToken(token);
+		return decodedJWT.getSubject().toString();
+	}   
+    
 }

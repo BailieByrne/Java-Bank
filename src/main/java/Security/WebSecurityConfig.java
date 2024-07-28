@@ -8,49 +8,49 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig {
-	
-	@Bean
-	public SecurityFilterChain appsecurity(HttpSecurity http) throws Exception{
-		
-		http.cors().and()
-		.csrf().disable()                  //Diables CORS/CSRF Above my paygrade
-		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)//AS A REST API SHOULD BE STATELESS
-		.and()
-		.formLogin().disable()  //Disables Default Login Form
-		.securityMatcher("/api/**") //Blocks API requests from unauthed users
-		.authorizeHttpRequests(registry -> registry
-				.requestMatchers("/").permitAll()
-				.requestMatchers("/auth/login").permitAll()//Allows any requests with default root like login/test
-				.anyRequest().authenticated()
-				);  //Requires anything else to be authed
-		
-		
-		return http.build(); //Returns the newly built Filterchain
-		
-	}
-	
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**")
-				.allowedOriginPatterns("*")
-						/*
-						 * .allowedOrigins("http://localhost:3000")
-						 * .allowedOrigins("http://localhost:5173")// Allow requests from your React
-						 * frontend
-						 */                
-				.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*")
-                .allowCredentials(true);
-			}
-		};
-	}
 
+	@Bean
+    public SecurityFilterChain appSecurity(HttpSecurity http) throws Exception {
+        http.cors().and()
+            .csrf().disable()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .formLogin().disable()
+            .securityMatcher("/api/**")
+            .authorizeHttpRequests(registry -> registry
+                .requestMatchers("/").permitAll()
+                .requestMatchers("/auth/login").permitAll()
+                .requestMatchers("/api/**").hasAnyAuthority("USER")
+                .anyRequest().authenticated()
+            );
 
+        http.addFilterBefore(jwtAuthenticationFilter(), org.springframework.security.web.authentication.www.BasicAuthenticationFilter.class);
+
+        return http.build();
+    }
+
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+        return new JwtAuthenticationFilter();
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                    .allowedOrigins("https://82.41.19.127:5173")
+                    .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                    .allowedHeaders("*")
+                    .allowCredentials(true);
+            }
+        };
+    }
 }
